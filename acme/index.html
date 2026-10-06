@@ -155,7 +155,7 @@ function tick(){if(sec<=0){clearInterval(intv);return}sec--;tm.textContent=Strin
 function go(n){document.querySelectorAll(".screen").forEach(x=>x.classList.remove("on"));document.getElementById("s"+n).classList.add("on");pr.style.width=Math.min(100,n/7*100)+"%";scrollTo(0,0)}
 function norm(x){return(x||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"")}
 function ck(n){let a=ANSWERS[n-1],ok=true;for(let j=0;j<3;j++){if(document.getElementById("q"+n+j).value!==a[j])ok=false}let t=norm(document.getElementById("o"+n).value);if(K[n-1].filter(k=>t.includes(norm(k))).length<2)ok=false;document.getElementById("f"+n).innerHTML=ok?'<div class="ok"><b>Correcto.</b> La evidencia queda desbloqueada.</div>':'<div class="bad">Revisa las tres respuestas y la pregunta abierta: solo se requieren dos coincidencias del banco de palabras.</div>';if(ok)document.getElementById("n"+n).classList.remove("hidden")}
-function panel(){go(9)}
+function panel(){const p=prompt("PANEL DEL DOCENTE · EXPEDIENTE 03\nIntroduce la contraseña:");if(p==="ROMERO17")go(9);else if(p!==null)alert("Contraseña incorrecta.")}
 function enterPanoramic(){document.body.classList.add("panoramic-mode");document.getElementById("panoramicExit").style.display="block";scrollTo({top:0,behavior:"smooth"})}
 function exitPanoramic(){document.body.classList.remove("panoramic-mode");document.getElementById("panoramicExit").style.display="none";go(9)}
 function finish(){done.innerHTML='<div class="ok"><b>Reflexión concluida.</b> Presenten al docente la clave ACME-LGSM-26.</div>'}
