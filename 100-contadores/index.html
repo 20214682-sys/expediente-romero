@@ -15,7 +15,7 @@
 <section id="game" class="panel hidden"><div class="score"><b>100 CONTADORES DIJIERON</b><span>PUNTOS: <b id="score">0</b></span><span>ERRORES: <span id="strikes" class="strike">○ ○</span></span></div>
 <div class="rounds" id="roundNav"></div><div id="round"></div><div id="final" class="finish hidden"></div></section>
 
-<section class="panel teacher">
+<section id="teacherPanel" class="panel teacher hidden">
 <h2>PANEL DEL DOCENTE</h2>
 <div id="teacherLogin">
 <p>Acceso exclusivo para el docente. Introduce la contraseña para consultar respuestas, claves y puntuaciones.</p>
@@ -32,6 +32,7 @@
 <div class="nav"><a href="../index.html">← VOLVER A LA CARTELERA</a></div>
 </main>
 <script>
+window.addEventListener("DOMContentLoaded",function(){if(new URLSearchParams(location.search).get("docente")==="1"){document.getElementById("teacherPanel").classList.remove("hidden")}});
 const R=[
 {art:"Código de Comercio · Artículo 3",q:"¿Quiénes se reputan en derecho comerciantes?",a:[["Personas con capacidad legal para ejercer el comercio que hacen de él su ocupación ordinaria",30],["Sociedades constituidas con arreglo a las leyes mercantiles",30],["Sociedades extranjeras o sus agencias y sucursales que ejercen actos de comercio en territorio nacional",30],["Personas que accidentalmente realizan una operación de comercio",5],["Quien compre para uso o consumo propio",5]]},
 {art:"Código de Comercio · Artículo 75",q:"¿Qué operaciones aparecen literalmente entre los actos de comercio?",a:[["Adquisiciones, enajenaciones y alquileres con propósito de especulación comercial",25],["Compras y ventas de bienes inmuebles con propósito de especulación comercial",20],["Compras y ventas de acciones y obligaciones de sociedades mercantiles",20],["Operaciones de bancos",15],["Contratos de seguros de toda especie",20]]},
