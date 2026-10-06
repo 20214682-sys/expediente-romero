@@ -15,11 +15,20 @@
 <section id="game" class="panel hidden"><div class="score"><b>100 CONTADORES DIJIERON</b><span>PUNTOS: <b id="score">0</b></span><span>ERRORES: <span id="strikes" class="strike">○ ○</span></span></div>
 <div class="rounds" id="roundNav"></div><div id="round"></div><div id="final" class="finish hidden"></div></section>
 
-<section class="panel teacher"><details><summary>GUÍA DEL DOCENTE</summary>
+<section class="panel teacher">
+<h2>PANEL DEL DOCENTE</h2>
+<div id="teacherLogin">
+<p>Acceso exclusivo para el docente. Introduce la contraseña para consultar respuestas, claves y puntuaciones.</p>
+<input class="input" id="teacherPass" type="password" placeholder="Contraseña del docente">
+<button class="btn" onclick="openTeacherPanel()">ABRIR PANEL</button>
+<div id="teacherMsg" class="msg"></div>
+</div>
+<div id="teacherGuide" class="hidden">
 <p><b>Clave de acceso del nivel maestro:</b> NEXO-17-B · ECOMODA-LGSM-26 · ACME-LGSM-26.</p>
 <p><b>Dinámica:</b> una respuesta correcta revela una casilla y suma los puntos indicados. Las puntuaciones son didácticas para la mecánica del juego; no representan una encuesta real.</p>
 <div id="teacherAnswers"></div>
-</details></section>
+</div>
+</section>
 <div class="nav"><a href="../index.html">← VOLVER A LA CARTELERA</a></div>
 </main>
 <script>
@@ -44,5 +53,6 @@ function startRoundTimer(){clearInterval(roundInt);roundInt=setInterval(()=>{rou
 function reveal(j){if(revealed.has(j))return;const b=document.getElementById("a"+j),item=R[round].a[j];if(item[1]===0){b.classList.add("wrong");wrong++;document.getElementById("strikes").textContent=wrong===1?"X ○":"X X";pmsg(wrong===1?"Esa respuesta no estaba en el tablero. Dr. Pandástico recomienda leer antes de adivinar; es una técnica revolucionaria.":"Dos errores. Magnífico: acabas de descubrir una forma muy eficiente de perder tiempo.");if(wrong>=2){clearInterval(roundInt);setTimeout(()=>show(round),900)}return}revealed.add(j);b.classList.add("revealed");b.innerHTML='<span>'+item[0]+'</span><span>'+item[1]+'</span>';score+=item[1];document.getElementById("score").textContent=score;const target=R[round].a.filter(x=>x[1]>0).length;if(revealed.size>=target){clearInterval(roundInt);document.getElementById("next").style.display="inline-block"}}
 function nextRound(){if(round<R.length-1)show(round+1);else finish()}
 function finish(){document.getElementById("round").innerHTML="";document.getElementById("final").classList.remove("hidden");document.getElementById("final").innerHTML='<b>NIVEL MAESTRO SUPERADO</b><p>Puntaje final: '+score+'</p><p>Han demostrado dominio literal de disposiciones mercantiles y societarias.</p><p><b>CLAVE FINAL: CONTADORES-100</b></p>'}
-document.getElementById("teacherAnswers").innerHTML=R.map((r,i)=>'<h3>Ronda '+(i+1)+' · '+r.art+'</h3><ol>'+r.a.map(x=>'<li>'+x[0]+' — <b>'+x[1]+' puntos</b></li>').join("")+'</ol>').join("");
+document.getElementById("teacherAnswers").innerHTML=R.map((r,i)=>'<h3>Ronda '+(i+1)+' · '+r.art+'</h3><p><b>Pregunta:</b> '+r.q+'</p><ol>'+r.a.map(x=>'<li>'+x[0]+' — <b>'+x[1]+' puntos</b>'+(x[1]===0?' · respuesta incorrecta / strike':'')+'</li>').join("")+'</ol>').join("");
+function openTeacherPanel(){const p=document.getElementById("teacherPass").value;const msg=document.getElementById("teacherMsg");if(p==="ROMERO17"){document.getElementById("teacherLogin").classList.add("hidden");document.getElementById("teacherGuide").classList.remove("hidden");msg.textContent=""}else{msg.textContent="Contraseña incorrecta.";}}
 </script></body></html>
